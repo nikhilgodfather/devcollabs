@@ -75,7 +75,10 @@ Real-time collaboration is powered by Socket.io. Key events include:
             },
         },
     },
-    apis: [path.join(__dirname, "./**/*.ts")],
+    apis: [
+        path.join(__dirname, "./**/*.ts"),
+        path.join(__dirname, "./**/*.js")
+    ],
 }
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions)
