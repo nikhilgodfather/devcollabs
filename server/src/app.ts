@@ -62,7 +62,7 @@ Real-time collaboration is powered by Socket.io. Key events include:
         },
         servers: [
             {
-                url: "http://localhost:3000",
+                url: "https://devcollabs-gten.onrender.com",
             },
         ],
         components: {
