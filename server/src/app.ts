@@ -3,6 +3,7 @@ import cors from "cors"
 import path from "path"
 import swaggerUi from "swagger-ui-express"
 import swaggerJsdoc from "swagger-jsdoc"
+import { rateLimit } from "express-rate-limit"
 
 import authRoutes from "./auth/auth.routes"
 import projectRoutes from "./projects/projects.routes"
@@ -24,6 +25,21 @@ app.use(cors(corsOptions))
 app.options('*', cors(corsOptions)) 
 
 app.use(express.json())
+
+// Rate Limiting Middleware
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: {
+        status: 429,
+        error: "Too many requests, please try again later."
+    },
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+// Apply the rate limiting middleware to all requests
+app.use(limiter)
 
 const swaggerOptions = {
     definition: {
