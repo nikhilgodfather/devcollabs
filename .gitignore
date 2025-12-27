@@ -1,0 +1,42 @@
+# DevCollab - Monorepo Gitignore
+
+# Root Dependencies
+node_modules/
+
+# --- FRONTEND (client/) ---
+client/node_modules/
+client/dist/
+client/build/
+client/coverage/
+client/.env
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+
+# --- BACKEND (server/) ---
+server/node_modules/
+server/dist/
+server/build/
+server/coverage/
+server/.env
+server/.env.local
+server/.env.development.local
+server/.env.test.local
+server/.env.production.local
+server/npm-debug.log*
+
+# --- COMMON EXCLUSIONS ---
+.pnp
+.pnp.js
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Misc
+start.bat
+TODO.md
+*.zip
+*.tar.gz

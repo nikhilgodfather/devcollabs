@@ -1,0 +1,75 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon Section with Network Structure -->
+  <g id="icon">
+    <!-- Double Chevrons (<<) - Green -->
+    <path d="M4 30 L8 26 L8 30 L4 34 Z" fill="#2bff88" filter="url(#glow-green)"/>
+    <path d="M8 30 L12 26 L12 30 L8 34 Z" fill="#2bff88" filter="url(#glow-green)"/>
+    
+    <!-- Single Chevron (>) - Green -->
+    <path d="M12 30 L16 26 L16 30 L12 34 Z" fill="#2bff88" filter="url(#glow-green)"/>
+    
+    <!-- Network Nodes and Connections -->
+    <!-- Top Node (Green) -->
+    <circle cx="18" cy="22" r="2.5" fill="#2bff88" filter="url(#glow-green)"/>
+    <line x1="18" y1="22" x2="18" y2="30" stroke="#2bff88" stroke-width="1.5" filter="url(#glow-green)"/>
+    
+    <!-- Middle Node (Green) -->
+    <circle cx="18" cy="30" r="2.5" fill="#2bff88" filter="url(#glow-green)"/>
+    <line x1="18" y1="30" x2="28" y2="38" stroke="#2bff88" stroke-width="1.5" filter="url(#glow-green)"/>
+    
+    <!-- Bottom Node (Yellow/Orange) -->
+    <circle cx="28" cy="38" r="2.5" fill="#ffa500" filter="url(#glow-orange)"/>
+    <line x1="28" y1="38" x2="18" y2="38" stroke="#ffa500" stroke-width="1.5" filter="url(#glow-orange)"/>
+    
+    <!-- Additional Connection Line (Green) -->
+    <line x1="18" y1="30" x2="14" y2="26" stroke="#2bff88" stroke-width="1.5" filter="url(#glow-green)"/>
+    <circle cx="14" cy="26" r="2" fill="#2bff88" filter="url(#glow-green)"/>
+  </g>
+  
+  <!-- Text Section -->
+  <g id="text">
+    <text x="42" y="38" font-family="'IBM Plex Sans', sans-serif" font-size="22" font-weight="700" fill="#2bff88" filter="url(#glow-green)">Dev</text>
+    <text x="78" y="38" font-family="'IBM Plex Sans', sans-serif" font-size="22" font-weight="700" fill="#e0e0e0" filter="url(#glow-white)">Collab</text>
+  </g>
+  
+  <!-- Glow Filters -->
+  <defs>
+    <filter id="glow-green" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="0" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.8"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="matrix" values="0 1 0 0 0  0 1 0 0 0  0 1 0 0 0  0 0 0 1 0"/>
+    </filter>
+    
+    <filter id="glow-orange" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="0" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.8"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="matrix" values="1 0.65 0 0 0  0.65 0.4 0 0 0  0 0 0 0 0  0 0 0 1 0"/>
+    </filter>
+    
+    <filter id="glow-white" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
+      <feOffset dx="0" dy="0" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.6"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>

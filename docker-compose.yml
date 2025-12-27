@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: devcollab-postgres
+    environment:
+      POSTGRES_USER: devcollab
+      POSTGRES_PASSWORD: devcollab_dev_password
+      POSTGRES_DB: devcollab
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./server/src/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - DevCollab
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U devcollab"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache & Queue
+  redis:
+    image: redis:alpine
+    container_name: devcollab-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - DevCollab
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # API Server
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: devcollab-api
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://devcollab:devcollab_dev_password@postgres:5432/devcollab
+      REDIS_URL: redis://redis:6379
+      JWT_ACCESS_SECRET: dev_access_secret_change_in_production
+      JWT_REFRESH_SECRET: dev_refresh_secret_change_in_production
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - DevCollab
+    restart: unless-stopped
+
+  # Background Worker
+  worker:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.worker
+    container_name: devcollab-worker
+    environment:
+      DATABASE_URL: postgresql://devcollab:devcollab_dev_password@postgres:5432/devcollab
+      REDIS_URL: redis://redis:6379
+      JWT_ACCESS_SECRET: dev_access_secret_change_in_production
+      JWT_REFRESH_SECRET: dev_refresh_secret_change_in_production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - DevCollab
+    restart: unless-stopped
+
+  # Client (Frontend)
+  client:
+    build: ./client
+    container_name: devcollab-client
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+    networks:
+      - DevCollab
+
+networks:
+  DevCollab:
+    driver: bridge
+
+volumes:
+  postgres_data:
