@@ -49,7 +49,7 @@ export class NotificationsService {
              ORDER BY created_at DESC`,
             [userId],
         )
-        const notifications = result.rows.map((row) => ({
+        const notifications = result.rows.map((row: any) => ({
             id: row.id,
             type: row.type,
             status: row.status,
@@ -57,7 +57,7 @@ export class NotificationsService {
             createdAt: row.created_at,
             resolvedAt: row.resolved_at,
         }))
-        const unreadCount = notifications.filter((n) => n.status === "PENDING").length
+        const unreadCount = notifications.filter((n: any) => n.status === "PENDING").length
         return { unreadCount, notifications }
     }
 

@@ -23,7 +23,7 @@ export class UsersService {
              LIMIT 10`,
             [requesterUserId, like],
         )
-        return result.rows.map((row) => ({
+        return result.rows.map((row: any) => ({
             id: row.id,
             username: row.username,
             email: row.email,

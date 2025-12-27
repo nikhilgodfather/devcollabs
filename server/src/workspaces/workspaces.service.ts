@@ -243,7 +243,7 @@ export class WorkspacesService {
              ORDER BY wi.created_at DESC`,
             [workspaceId],
         )
-        return result.rows.map((row) => ({
+        return result.rows.map((row: any) => ({
             id: row.id,
             inviteeId: row.invitee_id,
             role: row.role,
